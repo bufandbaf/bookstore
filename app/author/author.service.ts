@@ -1,11 +1,24 @@
+import { BookService } from "../book/book.service";
 import { IAuthor } from "./author.interface";
 
 
 export class AuthorService {
-    constructor(){
-        this.authors = [];
+    // SINGLETON ---------------------- BEGIN
+    private static instance: AuthorService;
+    private constructor(){}
+    public static getInstance(): AuthorService {
+        if (!AuthorService.instance) {
+            AuthorService.instance = new AuthorService();
+        }
+        return AuthorService.instance;
     }
-    private authors: IAuthor[];
+    // SINGLETON ---------------------- END
+    
+    // Service Injection
+    private bookService: BookService = BookService.getInstance();
+
+    // Local author storage
+    private authors: IAuthor[] = [];
     create(author: IAuthor) {
         this.authors.push(author);
         return author;
@@ -13,5 +26,9 @@ export class AuthorService {
 
     list() {
         return this.authors;
+    }
+
+    listBooks(searchName: string) {
+        return this.bookService.listByAuthor(searchName);
     }
 }

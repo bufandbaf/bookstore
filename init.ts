@@ -1,13 +1,13 @@
 import { BookService } from "./app/book/book.service";
 import { AuthorService } from "./app/author/author.service";
 
-const authorService = new AuthorService();
+const authorService = AuthorService.getInstance();
 const georgeOrwel = authorService.create({
   firstName: "George",
   lastName: "Orwell",
 });
 
-const bookService = new BookService();
+const bookService = BookService.getInstance();
 bookService.create({
   name: "Animal Farm",
   author: georgeOrwel,
@@ -29,18 +29,20 @@ bookService.create({
 });
 
 console.clear();
-console.log("not sorted:", bookService.list());
+// console.log("not sorted:", bookService.list());
 bookService.sort(false);
-console.log("sorted descending:", bookService.list());
+// console.log("sorted descending:", bookService.list());
 bookService.sort(true);
-console.log("sorted ascending:", bookService.list());
+// console.log("sorted ascending:", bookService.list());
 
 console.log(
-  "list book names",
-  bookService.list().map((book) => {
-    return { name: book.name };
-  })
+  "Authors",
+  authorService.list(),
 );
+
+console.log(
+  bookService.listByAuthor({firstName: 'george', lastName: 'orwell'})
+)
 
 // zjednodušená forma bez return
 // console.log('list book names', bookService.list().map((book) => ({name: book.name}) ));
