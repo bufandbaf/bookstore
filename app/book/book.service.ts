@@ -21,6 +21,8 @@ export class BookService {
     return book;
   }
 
+  // TODO: add delete() method that returns empty object
+
   /**
    * 
    * @returns list of all books in the library

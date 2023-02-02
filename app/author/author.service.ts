@@ -24,6 +24,8 @@ export class AuthorService {
         return author;
     }
 
+    // TODO: add delete() method that returns empty object
+
     list() {
         return this.authors;
     }
