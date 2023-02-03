@@ -1,10 +1,10 @@
-import { IAuthor } from '../author/author.interface';
-import { IBook } from './book.interface';
+import { IAuthor } from "../author/author.interface";
+import { IBook } from "./book.interface";
 
 export class BookService {
   // SINGLETON ---------------------- BEGIN
   private static instance: BookService;
-  private constructor() { }
+  private constructor() {}
   public static getInstance(): BookService {
     if (!BookService.instance) {
       BookService.instance = new BookService();
@@ -24,7 +24,7 @@ export class BookService {
   // TODO: add delete() method that returns empty object
 
   /**
-   * 
+   *
    * @returns list of all books in the library
    */
   list() {
@@ -32,7 +32,7 @@ export class BookService {
   }
 
   /**
-   * 
+   *
    * @param asc set sorting order where TRUE is ascending, FALSE is descending
    * @returns list of sorted books
    */
@@ -53,19 +53,30 @@ export class BookService {
   }
 
   /**
-   * 
+   *
    * @param author author's name or full author object - both case insensitive
    * @returns list of author's books
    */
   listByAuthor(author: IAuthor | string) {
     return this.books.filter((book) => {
-      if (typeof author === 'string') {
-        return book.author.firstName.toLowerCase() === author.toLowerCase() || book.author.lastName.toLowerCase() === author.toLowerCase()
+      if (typeof author === "string") {
+        return (
+          book.author.firstName.toLowerCase() === author.toLowerCase() ||
+          book.author.lastName.toLowerCase() === author.toLowerCase()
+        );
       } else {
-        return book.author.firstName.toLowerCase() === author.firstName.toLowerCase() && book.author.lastName.toLowerCase() === author.lastName.toLowerCase()
+        return (
+          book.author.firstName.toLowerCase() ===
+            author.firstName.toLowerCase() &&
+          book.author.lastName.toLowerCase() === author.lastName.toLowerCase()
+        );
       }
-    }
-
+    });
+  }
+  delete(book: IBook) {
+    this.books = this.books.filter(
+      (b) => b.name.toLowerCase() !== book.name.toLowerCase()
     );
+    return {};
   }
 }
