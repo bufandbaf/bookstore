@@ -36,8 +36,8 @@ export class BookService {
    */
   sort(asc: boolean) {
     this.books.sort((a, b) => {
-      const nameA = a.bookName.toUpperCase(); // ignore upper and lowercase
-      const nameB = b.bookName.toUpperCase(); // ignore upper and lowercase
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
       if (nameA < nameB) {
         return asc ? -1 : 1;
       }
@@ -76,19 +76,22 @@ export class BookService {
    * @param name book's name
    * @returns list of books with the given name
    */
-  listByBookName(name: string) {
+  listByName(name: string) {
     return this.books.filter((book) => {
-      return book.bookName.toLowerCase() === name.toLowerCase();
+      return book.name.toLowerCase() === name.toLowerCase();
     });
   }
-  deleteBook(book: IBook) {
-    const bookIndex = this.books.findIndex(
+  getIndex(book: IBook) {
+    return this.books.findIndex(
       (b) =>
-        b.bookName.toLowerCase() === book.bookName.toLowerCase() &&
+        b.name.toLowerCase() === book.name.toLowerCase() &&
         b.author.firstName.toLowerCase() ===
           book.author.firstName.toLowerCase() &&
         b.author.lastName.toLowerCase() === book.author.lastName.toLowerCase()
     );
+  }
+  delete(book: IBook) {
+    const bookIndex = this.getIndex(book);
     if (bookIndex !== -1) {
       this.books.splice(bookIndex, 1);
       return true;

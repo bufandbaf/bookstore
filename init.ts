@@ -22,23 +22,23 @@ const henrykSienkiewicz = authorService.create({
 // Books list
 const bookService = BookService.getInstance();
 
-bookService.create({
-  bookName: "Animal Farm",
+const animalFarm = bookService.create({
+  name: "Animal Farm",
   author: georgeOrwell,
 });
 
 bookService.create({
-  bookName: "1984",
+  name: "1984",
   author: georgeOrwell,
 });
 
 bookService.create({
-  bookName: "Cesta kolem světa za 80 dnů",
+  name: "Cesta kolem světa za 80 dnů",
   author: julesVerne,
 });
 
-bookService.create({
-  bookName: "Quo Vadis",
+const quoVadis = bookService.create({
+  name: "Quo Vadis",
   author: henrykSienkiewicz,
 });
 
@@ -64,3 +64,12 @@ bookService.sort(true);
 
 // Simplified form without return
 // console.log('list book names', bookService.list().map((book) => ({name: book.name}) ));
+
+bookService.delete(animalFarm);
+
+// Complete list of books in catalogue
+console.log(bookService.list());
+
+console.log(
+  `Book '${quoVadis.name}' has index number ${bookService.getIndex(quoVadis)}.`
+);
