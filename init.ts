@@ -23,22 +23,22 @@ const henrykSienkiewicz = authorService.create({
 const bookService = BookService.getInstance();
 
 bookService.create({
-  name: "Animal Farm",
+  bookName: "Animal Farm",
   author: georgeOrwell,
 });
 
 bookService.create({
-  name: "1984",
+  bookName: "1984",
   author: georgeOrwell,
 });
 
 bookService.create({
-  name: "Cesta kolem světa za 80 dnů",
+  bookName: "Cesta kolem světa za 80 dnů",
   author: julesVerne,
 });
 
 bookService.create({
-  name: "Quo Vadis",
+  bookName: "Quo Vadis",
   author: henrykSienkiewicz,
 });
 
