@@ -71,6 +71,16 @@ export class BookService {
       }
     });
   }
+  /**
+   *
+   * @param name book's name
+   * @returns list of books with the given name
+   */
+  listByBookName(name: string) {
+    return this.books.filter((book) => {
+      return book.name.toLowerCase() === name.toLowerCase();
+    });
+  }
   deleteBook(book: IBook) {
     this.books = this.books.filter(
       (b) => b.name.toLowerCase() !== book.name.toLowerCase()

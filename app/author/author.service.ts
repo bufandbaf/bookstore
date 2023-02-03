@@ -33,7 +33,7 @@ export class AuthorService {
   deleteAuthor(author: IAuthor) {
     this.authors = this.authors.filter(
       (a) =>
-        a.firstName.toLowerCase() !== author.firstName.toLowerCase() ||
+        a.firstName.toLowerCase() !== author.firstName.toLowerCase() &&
         a.lastName.toLowerCase() !== author.lastName.toLowerCase()
     );
     return {};
