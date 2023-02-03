@@ -50,16 +50,16 @@ bookService.sort(false);
 bookService.sort(true);
 // console.log("sorted ascending:", bookService.list());
 
-// Author-based search
+// Author-general search
 // console.log("Authors", authorService.list());
 
-// Author-specified search
+// Author-specific search
 // console.log(bookService.listByAuthor({ firstName: "george", lastName: "orwell" })
 
-// Book-based search
+// Book name-general search
 // console.log("Books", bookService.list());
 
-// Book name-specified search
+// Book name-specific search
 // console.log(bookService.listByBookName("Quo Vadis"));
 
 // Simplified form without return
