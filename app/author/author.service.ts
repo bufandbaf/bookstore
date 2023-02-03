@@ -32,7 +32,7 @@ export class AuthorService {
   listBooks(searchName: string) {
     return this.bookService.listByAuthor(searchName);
   }
-  delete(author: IAuthor) {
+  deleteAuthor(author: IAuthor) {
     this.authors = this.authors.filter(
       (a) =>
         a.firstName.toLowerCase() !== author.firstName.toLowerCase() ||

@@ -73,7 +73,7 @@ export class BookService {
       }
     });
   }
-  delete(book: IBook) {
+  deleteBook(book: IBook) {
     this.books = this.books.filter(
       (b) => b.name.toLowerCase() !== book.name.toLowerCase()
     );
