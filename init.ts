@@ -51,18 +51,16 @@ bookService.sort(true);
 // console.log("sorted ascending:", bookService.list());
 
 // Author-based search
-/**console.log("Authors", authorService.list());*/
+// console.log("Authors", authorService.list());
 
 // Author-specified search
-/**console.log(
-  bookService.listByAuthor({ firstName: "george", lastName: "orwell" })
-);*/
+// console.log(bookService.listByAuthor({ firstName: "george", lastName: "orwell" })
 
 // Book-based search
-/**console.log("Books", bookService.list());*/
+// console.log("Books", bookService.list());
 
 // Book name-specified search
-/**console.log(bookService.listByBookName("Quo Vadis"));*/
+// console.log(bookService.listByBookName("Quo Vadis"));
 
 // Simplified form without return
 // console.log('list book names', bookService.list().map((book) => ({name: book.name}) ));
