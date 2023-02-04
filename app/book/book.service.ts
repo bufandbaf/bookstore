@@ -1,3 +1,6 @@
+// TODO: install https://www.npmjs.com/package/uuid
+// TODO: import v1 uuid
+
 import { IAuthor } from "../author/author.interface";
 import { IBook } from "./book.interface";
 
@@ -13,10 +16,10 @@ export class BookService {
   }
   // SINGLETON ---------------------- END
 
-  // Service Injection
   private books: IBook[] = [];
 
   create(book: IBook) {
+    // TODO: vygeneruj nový uuid pomocí uuidv1 a přiřaď do book.code
     this.books.push(book);
     return book;
   }
