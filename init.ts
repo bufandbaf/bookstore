@@ -1,7 +1,7 @@
 import { BookService } from "./app/book/book.service";
 import { AuthorService } from "./app/author/author.service";
 
-// TODO: vytvoř složku /tests, která bude obsahovat různé testy - obdoba našich e2e testů. tento soubor přejmenuj např. na "delete.test.ts" a uprav tak, aby testoval kroky vytvoření a následné smazání knihy.
+// TODO: vytvoř složku /tests, která bude obsahovat různé testy - obdoba našich e2e testů. tento soubor přejmenuj např. na "book-delete.test.ts" a uprav tak, aby testoval kroky vytvoření a následné smazání knihy. Spouštět se bude pomocí příkazu "nodemon ./tests/book-delete.test.ts"
 
 // Authors list
 const authorService = AuthorService.getInstance();
