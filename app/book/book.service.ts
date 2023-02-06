@@ -1,6 +1,6 @@
 import { v1 as uuidv1 } from "uuid";
 
-import { IAuthor } from "../author/author.interface";
+import { IAuthorView, IAuthorCreate } from "../author/author.interface";
 import { IBookView, IBookCreate } from "./book.interface";
 
 export class BookService {
@@ -61,7 +61,7 @@ export class BookService {
    * @param author author's name or full author object - both case insensitive
    * @returns list of author's books
    */
-  listByAuthor(author: IAuthor | string) {
+  listByAuthor(author: IAuthorView | string) {
     return this.books.filter((book) => {
       if (typeof author === "string") {
         return (
