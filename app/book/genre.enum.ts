@@ -1,0 +1,1 @@
+// TODO: Vytvořit enum Genre a použít jej v IBookView interface
