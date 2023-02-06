@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { BookService } from "../book/book.service";
-import { IAuthor } from "./author.interface";
+import { IAuthorView, IAuthorCreate } from "./author.interface";
 
 export class AuthorService {
   // SINGLETON ---------------------- BEGIN
@@ -17,8 +19,14 @@ export class AuthorService {
   private bookService: BookService = BookService.getInstance();
 
   // Local author storage
-  private authors: IAuthor[] = [];
-  create(author: IAuthor) {
+  private authors: IAuthorCreate[] = [];
+
+  create(authorToCreate: IAuthorCreate) {
+    const author: IAuthorView = {
+      code: uuidv4(),
+      firstName: authorToCreate.firstName,
+      lastName: authorToCreate.lastName,
+    };
     this.authors.push(author);
     return author;
   }
@@ -30,7 +38,7 @@ export class AuthorService {
   listBooks(searchName: string) {
     return this.bookService.listByAuthor(searchName);
   }
-  deleteAuthor(author: IAuthor) {
+  deleteAuthor(author: IAuthorView) {
     this.authors = this.authors.filter(
       (a) =>
         a.firstName.toLowerCase() !== author.firstName.toLowerCase() &&

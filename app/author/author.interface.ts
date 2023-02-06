@@ -6,4 +6,5 @@ export interface IAuthorView {
   lastName: string;
 }
 
-export interface IAuthorCreate extends Pick<IAuthorView, "lastName"> {}
+export interface IAuthorCreate
+  extends Pick<IAuthorView, "firstName" | "lastName"> {}

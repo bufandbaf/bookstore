@@ -1,6 +1,6 @@
 import { v1 as uuidv1 } from "uuid";
 
-import { IAuthorView, IAuthorCreate } from "../author/author.interface";
+import { IAuthorView } from "../author/author.interface";
 import { IBookView, IBookCreate } from "./book.interface";
 
 export class BookService {
@@ -19,8 +19,8 @@ export class BookService {
 
   create(bookToCreate: IBookCreate) {
     const book: IBookView = {
-      author: bookToCreate.author,
       code: uuidv1(),
+      author: bookToCreate.author,
       name: bookToCreate.name,
     };
     this.books.push(book);
