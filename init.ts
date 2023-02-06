@@ -67,11 +67,13 @@ bookService.sort(true);
 // Simplified form without return
 // console.log('list book names', bookService.list().map((book) => ({name: book.name}) ));
 
-bookService.delete(animalFarm);
+bookService.delete(animalFarm.code);
 
 // Complete list of books in catalogue
 console.log(bookService.list());
 
 console.log(
-  `Book '${quoVadis.name}' has index number ${bookService.getIndex(quoVadis)}.`
+  `Book '${quoVadis.name}' has index number ${bookService.getIndex(
+    quoVadis.code
+  )}.`
 );

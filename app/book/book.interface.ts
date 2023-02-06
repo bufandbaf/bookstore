@@ -1,10 +1,13 @@
 import { IAuthor } from "../author/author.interface";
 import { IPublisher } from "../publisher/publisher.interface";
 
-// TODO: přidat property code typu string, které se naplní při vytvoření unikátním uuid (v bookService.create)
-
-export interface IBook {
+export interface IBookView {
+  code: string;
   name: string;
   author: IAuthor;
   publisher?: IPublisher;
 }
+
+export interface IBookCreate extends Pick<IBookView, "name" | "author"> {}
+
+// class whatIsInTheInterface implements IBookCreate {}

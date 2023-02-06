@@ -1,8 +1,7 @@
-// TODO: install https://www.npmjs.com/package/uuid
-// TODO: import v1 uuid
+import { v1 as uuidv1 } from "uuid";
 
 import { IAuthor } from "../author/author.interface";
-import { IBook } from "./book.interface";
+import { IBookView, IBookCreate } from "./book.interface";
 
 export class BookService {
   // SINGLETON ---------------------- BEGIN
@@ -16,10 +15,14 @@ export class BookService {
   }
   // SINGLETON ---------------------- END
 
-  private books: IBook[] = [];
+  private books: IBookView[] = [];
 
-  create(book: IBook) {
-    // TODO: vygeneruj nový uuid pomocí uuidv1 a přiřaď do book.code
+  create(bookToCreate: IBookCreate) {
+    const book: IBookView = {
+      author: bookToCreate.author,
+      code: uuidv1(),
+      name: bookToCreate.name,
+    };
     this.books.push(book);
     return book;
   }
@@ -79,22 +82,21 @@ export class BookService {
    * @param name book's name
    * @returns list of books with the given name
    */
-  listByName(name: string) {
+  filterByName(name: string): IBookView[] {
     return this.books.filter((book) => {
       return book.name.toLowerCase() === name.toLowerCase();
     });
   }
-  getIndex(book: IBook) {
-    return this.books.findIndex(
-      (b) =>
-        b.name.toLowerCase() === book.name.toLowerCase() &&
-        b.author.firstName.toLowerCase() ===
-          book.author.firstName.toLowerCase() &&
-        b.author.lastName.toLowerCase() === book.author.lastName.toLowerCase()
-    );
+  findByCode(code: string): IBookView {
+    const book = this.books.find((b) => b.code === code);
+    if (!book) throw new Error(`Book with #${code} not found.`);
+    return book;
   }
-  delete(book: IBook) {
-    const bookIndex = this.getIndex(book);
+  getIndex(code: string) {
+    return this.books.findIndex((b) => b.code === code);
+  }
+  delete(code: string) {
+    const bookIndex = this.getIndex(code);
     if (bookIndex !== -1) {
       this.books.splice(bookIndex, 1);
       return true;
