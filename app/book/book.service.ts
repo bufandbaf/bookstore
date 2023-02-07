@@ -19,7 +19,7 @@ export class BookService {
 
   create(bookToCreate: IBookCreate) {
     const book: IBookView = {
-      code: uuidv1(),
+      bookCode: uuidv1(),
       author: bookToCreate.author,
       name: bookToCreate.name,
       genre: bookToCreate.genre,
@@ -89,12 +89,12 @@ export class BookService {
     });
   }
   findByCode(code: string): IBookView {
-    const book = this.books.find((b) => b.code === code);
+    const book = this.books.find((b) => b.bookCode === code);
     if (!book) throw new Error(`Book with #${code} not found.`);
     return book;
   }
   getIndex(code: string) {
-    return this.books.findIndex((b) => b.code === code);
+    return this.books.findIndex((b) => b.bookCode === code);
   }
   delete(code: string) {
     const bookIndex = this.getIndex(code);

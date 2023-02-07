@@ -3,7 +3,7 @@ import { IPublisher } from "../publisher/publisher.interface";
 import { Genre } from "./genre.enum";
 
 export interface IBookView {
-  code: string;
+  bookCode: string;
   name: string;
   author: IAuthorView;
   publisher?: IPublisher;

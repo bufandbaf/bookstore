@@ -1,5 +1,5 @@
 export interface IAuthorView {
-  code: string;
+  authorCode: string;
   firstName: string;
   lastName: string;
 }

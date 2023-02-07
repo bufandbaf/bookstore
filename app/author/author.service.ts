@@ -23,7 +23,7 @@ export class AuthorService {
 
   create(authorToCreate: IAuthorCreate) {
     const author: IAuthorView = {
-      code: uuidv4(),
+      authorCode: uuidv4(),
       firstName: authorToCreate.firstName,
       lastName: authorToCreate.lastName,
     };
