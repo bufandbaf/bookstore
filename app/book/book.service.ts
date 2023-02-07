@@ -2,7 +2,6 @@ import { v1 as uuidv1 } from "uuid";
 
 import { IAuthorView } from "../author/author.interface";
 import { IBookView, IBookCreate } from "./book.interface";
-import { Genre } from "./genre.enum";
 
 export class BookService {
   // SINGLETON ---------------------- BEGIN
