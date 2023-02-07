@@ -1,5 +1,6 @@
 import { BookService } from "./app/book/book.service";
 import { AuthorService } from "./app/author/author.service";
+import { Genre } from "./app/book/genre.enum";
 
 // TODO: vytvoř složku /tests, která bude obsahovat různé testy - obdoba našich e2e testů. tento soubor přejmenuj např. na "book-delete.test.ts" a uprav tak, aby testoval kroky vytvoření a následné smazání knihy. Spouštět se bude pomocí příkazu "nodemon ./tests/book-delete.test.ts"
 
@@ -27,21 +28,25 @@ const bookService = BookService.getInstance();
 const animalFarm = bookService.create({
   name: "Animal Farm",
   author: georgeOrwell,
+  genre: Genre.Drama,
 });
 
-bookService.create({
+const nineteenEightyFour = bookService.create({
   name: "1984",
   author: georgeOrwell,
+  genre: Genre.ScienceFiction,
 });
 
-bookService.create({
+const aroundTheWorldInEightyDays = bookService.create({
   name: "Cesta kolem světa za 80 dnů",
   author: julesVerne,
+  genre: Genre.Adventure,
 });
 
 const quoVadis = bookService.create({
   name: "Quo Vadis",
   author: henrykSienkiewicz,
+  genre: Genre.History,
 });
 
 // Sorting options
