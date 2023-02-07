@@ -2,6 +2,7 @@ import { v1 as uuidv1 } from "uuid";
 
 import { IAuthorView } from "../author/author.interface";
 import { IBookView, IBookCreate } from "./book.interface";
+import { Genre } from "./genre.enum";
 
 export class BookService {
   // SINGLETON ---------------------- BEGIN
@@ -22,6 +23,7 @@ export class BookService {
       code: uuidv1(),
       author: bookToCreate.author,
       name: bookToCreate.name,
+      genre: bookToCreate.genre,
     };
     this.books.push(book);
     return book;
