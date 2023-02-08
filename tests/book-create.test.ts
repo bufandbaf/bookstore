@@ -1,6 +1,6 @@
-import { IAuthorCreate, IAuthorView } from '../app/author/author.interface';
+import { IAuthorView } from '../app/author/author.interface';
 import {AuthorService} from '../app/author/author.service';
-import { IBookCreate, IBookView } from '../app/book/book.interface';
+import { IBookCreate } from '../app/book/book.interface';
 import { BookService } from '../app/book/book.service';
 import { Genre } from '../app/book/genre.enum';
 import {describe, expect, expectObjectContains} from './utils/jest-like-expect';
