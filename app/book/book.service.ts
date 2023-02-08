@@ -88,14 +88,15 @@ export class BookService {
     if (!book) throw new Error(`Book with #${code} not found.`);
     return book;
   }
-  findByName(bookName: string, authorCode: string): IBookView {
-    const author = this.authorService.findByCode(authorCode);
+  findByName(bookName: string, authorCode: string, options?: {includeAuthor?: boolean}): IBookView {
+    const author = options?.includeAuthor
+      ? this.authorService.findByCode(authorCode)
+      : undefined;
     const book = this.books.find(
       (b) => b.name.toLowerCase() === bookName.toLowerCase() &&
         b.authorCode === authorCode);
     if (!book) throw new Error(`Book '${bookName}' not found.`);
-    book.author = author;
-    return book;
+    return {...book, author};
   }
   getIndex(code: string) {
     return this.books.findIndex((b) => b.code === code);

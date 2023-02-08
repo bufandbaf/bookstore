@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 let foundAnyError: boolean = false;
 let firstRun = true;
 
@@ -30,28 +32,41 @@ export function expect(received: any, expected: any) {
  */
 export function expectObjectContains(received: Record<string, any> | undefined, expected: Record<string, any> | undefined, options?: {showSummary?: boolean}) {
     let success = true;
-    console.info('Testing object...');
-    if (typeof received !== 'object') {
-        console.error('Received value is not an object.')
-        return false;
-    }
-    if (typeof expected !== 'object') {
-        console.error('Expected value is not an object.')
-        return false;
-    }
-    for (const entry of Object.entries(expected)) {
-        if (!received.hasOwnProperty(entry[0])) {
-            console.error(`Received object does not have "${entry[0]}" property.`)
-            console.log();
+    if (expected && received) {
+        if (!_.includes([received, expected], received)) {
             success = false;
+            foundAnyError = true;
+            if (!expected || !received) {
+                console.error('> Expected:', expected);
+                console.error('> Received:', received);
+                console.log();
+            }
         }
-
-        if (received[entry[0]] !== expected[entry[0]]) {
-            console.error('> Property name:', entry[0]);
-            console.error('> Expected:', expected[entry[0]]);
-            console.error('> Received:', received[entry[0]]);
-            console.log();
+    } else {
+        if (expected !== received) {
             success = false;
+            foundAnyError = true;
+            console.error('> Expected:', expected);
+            console.error('> Received:', received);
+            console.log();
+        }
+    }
+
+    if (expected) {
+        for (const entry of Object.entries(expected)) {
+            if (!received?.hasOwnProperty(entry[0])) {
+                console.error(`Received object does not have "${entry[0]}" property.`)
+                console.log();
+                success = false;
+            }
+
+            if (received?.[entry[0]] !== expected[entry[0]]) {
+                console.error('> Property name:', entry[0]);
+                console.error('> Expected:', expected[entry[0]]);
+                console.error('> Received:', received?.[entry[0]]);
+                console.log();
+                success = false;
+            }
         }
     }
 
@@ -75,9 +90,9 @@ export function describe(name: string, callback: Function) {
     console.log();
     callback();
     if (foundAnyError){
-        console.error(`RESULT: ${name} failed!`)
+        console.error(`\x1B[31m Test: ${name}, Result: FAILED \x1b[0m`)
     } else {
-        console.log(`RESULT: ${name} succeeded.`);
+        console.info(`\x1B[32m Test: ${name}, Result: OK \x1b[0m`)
     }
     console.log();
 }

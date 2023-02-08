@@ -1,10 +1,12 @@
 {
   "dependencies": {
     "@types/nodemon": "^1.19.2",
+    "lodash": "^4.17.21",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/uuid": "^9.0.0"
   }
 }
