@@ -1,38 +1,42 @@
-import { IAuthorCreate } from "../app/author/author.interface";
-import { IBookCreate } from "../app/book/book.interface";
-import { IPublisher } from "../app/publisher/publisher.interface";
+import { IAuthorView } from '../app/author/author.interface';
+import {AuthorService} from '../app/author/author.service';
+import { IBookCreate } from '../app/book/book.interface';
+import { BookService } from '../app/book/book.service';
+import { Genre } from '../app/book/genre.enum';
+import {expect, expectObjectContains} from './utils/jest-like-expect';
 
-/**const testNewBook = () => {
-  const newAuthor: IAuthorCreate = {
-    firstName: "John",
-    lastName: "Doe",
-  };
-  
-  const newPublisher: IPublisher = { name: "Tatravoid" };
+// Service Injection
+const authorService = AuthorService.getInstance();
+const bookService = BookService.getInstance();
 
-  const newBook: IBookCreate = {
-    name: "Test Book",
-    author: newAuthor,
-    publisher: newPublisher,
-  };
-  if (newBook.name !== "Test Book") {
-    throw new Error
-    (`Expected book name to be "Test Book" but got "${newBook.name}"`);
+// Arrange
+const expectedAuthor: Pick<IAuthorView, 'firstName' | 'lastName'> & {nesmysl: string} = {
+  firstName: "John",
+  lastName: "Doe",
+  nesmysl: 'abc',
 }
-  if (newBook.author.firstName !== "John") {
-    throw new Error
-    (`Expected author first name to be "John" but got "${newBook.author.firstName}"`);
+const expectedBook: Pick<IBookCreate, 'name' | 'genre' | 'publisher'> = {
+  name: "Seven",
+  genre: Genre.Drama,
 }
-  if (newBook.author.lastName !== "Doe") {
-    throw new Error
-    (`Expected author last name to be "Doe" but got "${newBook.author.lastName}"`);
-}
-  if (newBook.publisher.name !== "Tatravoid") {
-    throw new Error
-    (`Expected publisher name to be "Tatravoid" but got "${newBook.publisher.name}"`);
-} else{
-    console.log("Book created successfully!");
-};
 
-  testNewBook();
-}; */
+// Act
+const author = authorService.create({
+  firstName: expectedAuthor.firstName,
+  lastName: expectedAuthor.lastName,
+});
+bookService.create({
+  authorCode: author.code,
+  genre: expectedBook.genre,
+  name: expectedBook.name,
+  publisher: expectedBook.publisher,
+});
+const book = bookService.findByName(expectedBook.name, author.code);
+
+// Assert
+console.clear();
+let foundAnyError: boolean = false;
+if (!expect('book name', book.name, expectedBook.name)) foundAnyError = true;
+if (!expectObjectContains(book?.author, expectedAuthor)) foundAnyError = true;
+if (!foundAnyError)
+  console.log('Test for book creation was successfully provided.');

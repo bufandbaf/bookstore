@@ -1,12 +1,13 @@
 import { v1 as uuidv1 } from "uuid";
 
 import { IAuthorView } from "../author/author.interface";
+import { AuthorService } from "../author/author.service";
 import { IBookView, IBookCreate } from "./book.interface";
 
 export class BookService {
   // SINGLETON ---------------------- BEGIN
   private static instance: BookService;
-  private constructor() {}
+  private constructor() { }
   public static getInstance(): BookService {
     if (!BookService.instance) {
       BookService.instance = new BookService();
@@ -15,14 +16,21 @@ export class BookService {
   }
   // SINGLETON ---------------------- END
 
+  // Service Injection
+  private authorService: AuthorService = AuthorService.getInstance();
+
+  // Private properties
   private books: IBookView[] = [];
 
+  // Public methods
   create(bookToCreate: IBookCreate) {
     const book: IBookView = {
-      bookCode: uuidv1(),
-      author: bookToCreate.author,
+      code: uuidv1(),
+      authorCode: bookToCreate.authorCode,
       name: bookToCreate.name,
       genre: bookToCreate.genre,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     this.books.push(book);
     return book;
@@ -62,21 +70,8 @@ export class BookService {
    * @param author author's name or full author object - both case insensitive
    * @returns list of author's books
    */
-  listByAuthor(author: IAuthorView | string) {
-    return this.books.filter((book) => {
-      if (typeof author === "string") {
-        return (
-          book.author.firstName.toLowerCase() === author.toLowerCase() ||
-          book.author.lastName.toLowerCase() === author.toLowerCase()
-        );
-      } else {
-        return (
-          book.author.firstName.toLowerCase() ===
-            author.firstName.toLowerCase() &&
-          book.author.lastName.toLowerCase() === author.lastName.toLowerCase()
-        );
-      }
-    });
+  listByAuthor(authorCode: string) {
+    return this.books.filter((book) => book.authorCode === authorCode);
   }
   /**
    *
@@ -89,12 +84,21 @@ export class BookService {
     });
   }
   findByCode(code: string): IBookView {
-    const book = this.books.find((b) => b.bookCode === code);
+    const book = this.books.find((b) => b.code === code);
     if (!book) throw new Error(`Book with #${code} not found.`);
     return book;
   }
+  findByName(bookName: string, authorCode: string): IBookView {
+    const author = this.authorService.findByCode(authorCode);
+    const book = this.books.find(
+      (b) => b.name.toLowerCase() === bookName.toLowerCase() &&
+        b.authorCode === authorCode);
+    if (!book) throw new Error(`Book '${bookName}' not found.`);
+    book.author = author;
+    return book;
+  }
   getIndex(code: string) {
-    return this.books.findIndex((b) => b.bookCode === code);
+    return this.books.findIndex((b) => b.code === code);
   }
   delete(code: string) {
     const bookIndex = this.getIndex(code);

@@ -1,5 +1,7 @@
-export interface IAuthorView {
-  authorCode: string;
+import { ITimeStamp } from "../_base/timestamp.interface";
+
+export interface IAuthorView extends ITimeStamp {
+  code: string;
   firstName: string;
   lastName: string;
 }

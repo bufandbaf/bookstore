@@ -15,17 +15,16 @@ export class AuthorService {
   }
   // SINGLETON ---------------------- END
 
-  // Service Injection
-  private bookService: BookService = BookService.getInstance();
-
   // Local author storage
-  private authors: IAuthorCreate[] = [];
+  private authors: IAuthorView[] = [];
 
   create(authorToCreate: IAuthorCreate) {
     const author: IAuthorView = {
-      authorCode: uuidv4(),
+      code: uuidv4(),
       firstName: authorToCreate.firstName,
       lastName: authorToCreate.lastName,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     this.authors.push(author);
     return author;
@@ -35,9 +34,6 @@ export class AuthorService {
     return this.authors;
   }
 
-  listBooks(searchName: string) {
-    return this.bookService.listByAuthor(searchName);
-  }
   deleteAuthor(author: IAuthorView) {
     this.authors = this.authors.filter(
       (a) =>
@@ -45,5 +41,9 @@ export class AuthorService {
         a.lastName.toLowerCase() !== author.lastName.toLowerCase()
     );
     return {};
+  }
+
+  findByCode(code: string) {
+    return this.authors.find((author) => author.code === code);
   }
 }
