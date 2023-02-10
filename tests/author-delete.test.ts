@@ -1,0 +1,1 @@
+// Allow delete author only if there are no his/her books

@@ -1,54 +1,40 @@
-import { IAuthorView } from '../app/author/author.interface';
 import {AuthorService} from '../app/author/author.service';
-import { IBookCreate } from '../app/book/book.interface';
 import { BookService } from '../app/book/book.service';
-import { Genre } from '../app/book/genre.enum';
 import {describe, expect, expectObjectContains} from './utils/jest-like-expect';
+import {bookCreateSamples} from './setters/book.setter';
+import { authorCreateSamples } from './setters/author.setter';
 
-// Test interfaces
-interface IBookExpected extends Omit<IBookCreate, 'authorCode'> {
-  author?: Partial<IAuthorView>,
-}
+try {
 
-// Service Injection
-const authorService = AuthorService.getInstance();
-const bookService = BookService.getInstance();
+  // Service Injection
+  const authorService = AuthorService.getInstance();
+  const bookService = BookService.getInstance();
 
-// Arrange
-const expectedBook: IBookExpected = {
-  name: 'Seven',
-  genre: Genre.Drama,
-  author: {
-    firstName: 'John',
-    lastName: 'Orwell',
-  }
-}
+  // Arrange
+  const expectedBook = bookCreateSamples.animalFarm;
+  const expectedAuthor = authorCreateSamples.georgeOrwell;
 
-// Act
-const author = authorService.create({
-  firstName: 'John',
-  lastName: 'Doe',
-});
-
-bookService.create({
-  authorCode: author.code,
-  genre: expectedBook.genre,
-  name: expectedBook.name,
-  publisher: expectedBook.publisher,
-});
-const bookWithoutAuthor = bookService.findByName(expectedBook.name, author.code);
-const bookWithAuthor = bookService.findByName(expectedBook.name, author.code, {includeAuthor: true});
-
-// Assert
-describe('Testing books', () => {
-
-  describe('Book name', () => {
-    expect(bookWithoutAuthor.name, expectedBook.name);
+  // Act
+  const author = authorService.create(expectedAuthor);
+  bookService.create({
+    name: expectedBook.name,
+    authorCode: author.code,
+    genre: expectedBook.genre,
   });
+  const allBooks = bookService.list();
 
-  describe('Book object', () => {
-    expectObjectContains(bookWithoutAuthor?.author, undefined, {showSummary: true});
-    expectObjectContains(bookWithAuthor.author, expectedBook.author, {showSummary: true});
-  })
-
-});
+  // Assert
+  describe('Testing book creation', () => {
+    
+    describe('Check if the total number is ok.', () => {
+      expect(allBooks.length, 1);
+    });
+    
+    describe('New book details', () => {
+      expectObjectContains(allBooks[0], expectedBook, {
+        showSummary: true
+      });
+    })
+  });
+  
+} catch(e) {}

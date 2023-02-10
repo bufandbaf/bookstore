@@ -15,7 +15,7 @@ export class AuthorService {
   }
   // SINGLETON ---------------------- END
 
-  // Local author storage
+  // Local author memory-only storage
   private authors: IAuthorView[] = [];
 
   create(authorToCreate: IAuthorCreate) {
@@ -45,5 +45,11 @@ export class AuthorService {
 
   findByCode(code: string) {
     return this.authors.find((author) => author.code === code);
+  }
+  findByName(firstName: string, lastName: string) {
+    return this.authors.find((author) =>
+      author.firstName.toLowerCase() === firstName.toLowerCase() &&
+      author.lastName.toLowerCase() === lastName.toLowerCase()
+    );
   }
 }

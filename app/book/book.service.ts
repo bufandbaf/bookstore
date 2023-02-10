@@ -1,6 +1,5 @@
 import { v1 as uuidv1 } from "uuid";
 
-import { IAuthorView } from "../author/author.interface";
 import { AuthorService } from "../author/author.service";
 import { IBookView, IBookCreate } from "./book.interface";
 
@@ -19,7 +18,7 @@ export class BookService {
   // Service Injection
   private authorService: AuthorService = AuthorService.getInstance();
 
-  // Private properties
+  // Local book memory-only storage
   private books: IBookView[] = [];
 
   // Public methods
@@ -42,6 +41,10 @@ export class BookService {
    */
   list() {
     return this.books;
+  }
+
+  count() {
+    return this.books.length;
   }
 
   /**
@@ -88,14 +91,18 @@ export class BookService {
     if (!book) throw new Error(`Book with #${code} not found.`);
     return book;
   }
-  findByName(bookName: string, authorCode: string, options?: {includeAuthor?: boolean}): IBookView {
+  findByName(
+    bookName: string,
+    authorCode: string,
+    options?: {includeAuthor?: boolean}
+  ): IBookView | undefined {
     const author = options?.includeAuthor
-      ? this.authorService.findByCode(authorCode)
-      : undefined;
+    ? this.authorService.findByCode(authorCode)
+    : undefined;
     const book = this.books.find(
       (b) => b.name.toLowerCase() === bookName.toLowerCase() &&
-        b.authorCode === authorCode);
-    if (!book) throw new Error(`Book '${bookName}' not found.`);
+      b.authorCode === authorCode);
+      if (!book) return undefined;
     return {...book, author};
   }
   getIndex(code: string) {
