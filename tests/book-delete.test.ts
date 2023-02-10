@@ -1,5 +1,6 @@
 import { AuthorService } from "../app/author/author.service";
 import { BookService } from "../app/book/book.service";
+import { Genre } from "../app/book/genre.enum";
 
 // Authors list
 const authorService = AuthorService.getInstance();
@@ -14,12 +15,14 @@ const bookService = BookService.getInstance();
 
 const animalFarm = bookService.create({
   name: "Animal Farm",
-  author: georgeOrwell,
+  authorCode: georgeOrwell.firstName + georgeOrwell.lastName,
+  genre: Genre.Drama,
 });
 
 bookService.create({
   name: "1984",
-  author: georgeOrwell,
+  authorCode: georgeOrwell.firstName + georgeOrwell.lastName,
+  genre: Genre.ScienceFiction,
 });
 
 console.clear();
