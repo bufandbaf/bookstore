@@ -26,7 +26,7 @@ try {
   });
 
   // Act
-  const deleted = bookService.delete(createdBook.code);
+  bookService.delete(createdBook.code);
 
   const allBooks: number[] = [bookService.count()];
 
