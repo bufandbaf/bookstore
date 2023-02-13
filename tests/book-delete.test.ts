@@ -26,7 +26,8 @@ try {
   });
 
   // Act
-  bookService.delete(createdBook.code);
+  const deleted = bookService.delete(createdBook.code);
+
   const allBooks: number[] = [bookService.count()];
 
   // Assert
