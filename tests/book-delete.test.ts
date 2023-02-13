@@ -1,32 +1,43 @@
-import { BookService } from "../app/book/book.service";
-import { IAuthorView } from "../app/author/author.interface";
 import { AuthorService } from "../app/author/author.service";
+import { BookService } from "../app/book/book.service";
+import {
+  describe,
+  expect,
+  expectObjectContains,
+} from "./utils/jest-like-expect";
 import { bookCreateSamples } from "./setters/book.setter";
 import { authorCreateSamples } from "./setters/author.setter";
-import { describe } from "./utils/jest-like-expect";
 
 try {
   // Service Injection
-  const bookService = BookService.getInstance();
   const authorService = AuthorService.getInstance();
+  const bookService = BookService.getInstance();
 
   // Arrange
   const expectedBook = bookCreateSamples.animalFarm;
   const expectedAuthor = authorCreateSamples.georgeOrwell;
 
-  // Act
   const author = authorService.create(expectedAuthor);
-
-  bookService.create({
+  const createdBook = bookService.create({
     name: expectedBook.name,
     authorCode: author.code,
     genre: expectedBook.genre,
   });
 
-  const deleteBook = bookService.count();
+  // Act
+  bookService.delete(createdBook.code);
+  const allBooks: number[] = [bookService.count()];
 
   // Assert
   describe("Testing book deletion", () => {
-    describe();
+    describe("Check if the total number of books decreased", () => {
+      expect(allBooks[0], bookService.count() - 1);
+    });
+
+    describe("Deleted book details", () => {
+      expectObjectContains(createdBook, expectedBook, {
+        showSummary: true,
+      });
+    });
   });
 } catch (e) {}
