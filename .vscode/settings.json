@@ -5,5 +5,9 @@
     "SCIENCEFICTION",
     "světa",
     "Tatravoid"
-  ]
-}
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["typescript"]
+ }

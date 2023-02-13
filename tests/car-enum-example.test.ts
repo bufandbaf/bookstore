@@ -1,4 +1,5 @@
-enum Brand {
+/**
+ * enum Brand {
     FORD = 'FORD',
     AUDI = 'AUDI',
     SKODA = 'SKODA',
@@ -33,7 +34,7 @@ const cars: ICar[] = [
         brand: Brand.AUDI,
         colour: 'black',
     },
-]
+];
 
 function createCar(newCar: ICarCreate) {
     const code = `uuid-${Math.floor(Math.random() * 1000000000)}`;
@@ -41,12 +42,14 @@ function createCar(newCar: ICarCreate) {
         code,
         brand: newCar.brand,
         colour: newCar.colour,
-    }
+    };
     cars.push(car);
     return car;
 }
 
+// eslint-disable-next-line semi
 console.clear()
 // ukázka rozdílu mezi ENUM (pevně stanovené hodnoty) a string (libovolný string)
 createCar({brand: Brand.AUDI, colour: 'červená'});
 console.log('new car:', cars[cars.length - 1]);
+*/

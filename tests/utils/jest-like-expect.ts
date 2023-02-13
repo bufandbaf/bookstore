@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-let foundAnyError: boolean = false;
+let foundAnyError = false;
 let firstRun = true;
 
 /**
@@ -10,6 +10,7 @@ let firstRun = true;
  * @param expected expected value
  * @returns true if expect is equal to received
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function expect(received: any, expected: any) {
     const success = expected === received;
     if (!success) {
@@ -30,6 +31,7 @@ export function expect(received: any, expected: any) {
  * @param options additional options
  * @returns true if expect is equal to received
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function expectObjectContains(received: Record<string, any> | undefined, expected: Record<string, any> | undefined, options?: {showSummary?: boolean}) {
     let success = true;
     if (expected && received) {
@@ -54,8 +56,9 @@ export function expectObjectContains(received: Record<string, any> | undefined, 
 
     if (expected) {
         for (const entry of Object.entries(expected)) {
+            // eslint-disable-next-line no-prototype-builtins
             if (!received?.hasOwnProperty(entry[0])) {
-                console.error(`Received object does not have "${entry[0]}" property.`)
+                console.error(`Received object does not have '${entry[0]}' property.`);
                 console.log();
                 success = false;
             }
@@ -71,7 +74,7 @@ export function expectObjectContains(received: Record<string, any> | undefined, 
     }
 
     if (!success && options?.showSummary) {
-        console.error('Summary:')
+        console.error('Summary:');
         console.error('> expected:', expected);
         console.error('> received:', received);
         console.log();
@@ -80,6 +83,7 @@ export function expectObjectContains(received: Record<string, any> | undefined, 
     return success;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function describe(name: string, callback: Function) {
     foundAnyError = false;
     if (firstRun) {
@@ -90,9 +94,9 @@ export function describe(name: string, callback: Function) {
     console.log();
     callback();
     if (foundAnyError){
-        console.error(`\x1B[31m Test: ${name}, Result: FAILED \x1b[0m`)
+        console.error(`\x1B[31m Test: ${name}, Result: FAILED \x1b[0m`);
     } else {
-        console.info(`\x1B[32m Test: ${name}, Result: OK \x1b[0m`)
+        console.info(`\x1B[32m Test: ${name}, Result: OK \x1b[0m`);
     }
     console.log();
 }

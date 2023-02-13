@@ -1,4 +1,4 @@
-import { IAuthorCreate } from "../../app/author/author.interface";
+import { IAuthorCreate } from '../../app/author/author.interface';
 
 export enum demoAuthors {
     georgeOrwell = 'georgeOrwell',
@@ -7,12 +7,12 @@ export enum demoAuthors {
 
 export const authorCreateSamples: Record<demoAuthors, IAuthorCreate> = {
     georgeOrwell: {
-        firstName: "George",
-        lastName: "Orwell",
+        firstName: 'George',
+        lastName: 'Orwell',
     },
     julesVerne: {
-        firstName: "Jules",
-        lastName: "Verne",
+        firstName: 'Jules',
+        lastName: 'Verne',
     }
-}
+};
 

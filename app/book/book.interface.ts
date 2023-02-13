@@ -1,6 +1,6 @@
-import { IAuthorView } from "../author/author.interface";
-import { IPublisher } from "../publisher/publisher.interface";
-import { Genre } from "./genre.enum";
+import { IAuthorView } from '../author/author.interface';
+import { IPublisher } from '../publisher/publisher.interface';
+import { Genre } from './genre.enum';
 import { ITimeStamp } from '../_base/timestamp.interface';
 
 export interface IBookView extends ITimeStamp {
@@ -18,6 +18,7 @@ export interface IBookView extends ITimeStamp {
   genre: Genre;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IBookCreate
   extends Pick<IBookView, 'name' | 'publisher' | 'genre' | 'authorCode'> {
 }

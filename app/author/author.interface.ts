@@ -1,4 +1,4 @@
-import { ITimeStamp } from "../_base/timestamp.interface";
+import { ITimeStamp } from '../_base/timestamp.interface';
 
 export interface IAuthorView extends ITimeStamp {
   code: string;
@@ -6,5 +6,4 @@ export interface IAuthorView extends ITimeStamp {
   lastName: string;
 }
 
-export interface IAuthorCreate
-  extends Pick<IAuthorView, "firstName" | "lastName"> {}
+export type IAuthorCreate = Pick<IAuthorView, 'firstName' | 'lastName'>;
