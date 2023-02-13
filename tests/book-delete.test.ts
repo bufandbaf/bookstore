@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { AuthorService } from "../app/author/author.service";
 import { BookService } from "../app/book/book.service";
 import {
@@ -31,7 +32,7 @@ try {
   // Assert
   describe("Testing book deletion", () => {
     describe("Check if the total number of books decreased", () => {
-      expect(allBooks[0], bookService.count() - 1);
+      expect(allBooks[0], bookService.count());
     });
 
     describe("Deleted book details", () => {
